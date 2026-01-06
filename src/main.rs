@@ -118,6 +118,15 @@ fn main() -> Result<()> {
     let table = websocket_to_table(&websocket);
     let websocket = table::to_markdown(&table);
 
+    let mut outdated_websocket = data
+        .websocket
+        .iter()
+        .filter(|f| f.outdated == Some(true))
+        .collect::<Vec<_>>();
+    outdated_websocket.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+    let table = websocket_to_table(&outdated_websocket);
+    let outdated_websocket = table::to_markdown(&table);
+
     // --- render README --- //
 
     let tera = Tera::new("*.tmpl")?;
@@ -133,6 +142,7 @@ fn main() -> Result<()> {
     context.insert("outdated_server", &outdated_server);
     context.insert("low_level_server", &low_level_server);
     context.insert("websocket", &websocket);
+    context.insert("outdated_websocket", &outdated_websocket);
 
     let readme = tera.render("README.tmpl", &context)?;
     let mut file = File::create("README.md")?;
