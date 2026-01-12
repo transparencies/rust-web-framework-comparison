@@ -11,7 +11,7 @@ vdom = true
 ssr = true
 rendering = "html"
 architecture = "react"
-outdated = true
+outdated = false
 
 [[frontend]]
 name = "Seed"
