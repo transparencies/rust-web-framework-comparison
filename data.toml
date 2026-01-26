@@ -233,6 +233,12 @@ rendering = "html"
 architecture = "frp"
 outdated = true
 
+[[frontend]]
+name = "Xilem Web"
+crates-io = "xilem_web"
+repo = "https://github.com/linebender/xilem"
+rendering = "html"
+
 ############
 #  Server  #
 ############
